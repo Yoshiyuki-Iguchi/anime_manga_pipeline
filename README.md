@@ -65,6 +65,56 @@ nix-shell --run 'R -q -e "Sys.setenv(RXP_PROJECT_PATH=normalizePath(\".\")); sou
 ```
 ---
 
+## After Running the Pipeline
+
+Once the pipeline command finishes successfully:
+
+```bash
+nix-shell --run 'R -q -e "Sys.setenv(RXP_PROJECT_PATH=normalizePath(\".\")); source(\"gen-pipeline.R\"); rixpress::rxp_make(); testthat::test_dir(\"tests/testthat\")"'
+```
+
+you can inspect the generated results interactively in R.
+
+Start a new R session inside the nix-shell:
+
+```bash
+nix-shell
+R
+```
+
+Then load the derived objects:
+
+```r
+library(rixpress)
+
+summary <- rxp_read("summary_by_medium")
+corr <- rxp_read("corr_score_popularity")
+plot <- rxp_read("plot_score_vs_popularity")
+```
+
+### View summary statistics
+
+```r
+summary
+```
+
+### View correlation analysis
+
+```r
+corr
+```
+
+### View visualization
+
+```r
+plot
+```
+
+All outputs are produced by the reproducible pipeline and stored
+in the rixpress cache. No manual preprocessing is required.
+
+---
+
 ## Testing
 
 The project includes automated tests using testthat:
@@ -80,57 +130,5 @@ anime/manga labels are consistent
 correlation output structure is valid
 
 These tests ensure that the cleaning pipeline behaves as expected.
-
----
-
-## Viewing the Results
-
-After running the pipeline, all derived objects are stored in the
-rixpress cache and can be accessed directly from R.
-
-Start an R session inside the nix-shell:
-
-```bash
-R
-```
-
-Then load the results:
-
-```r
-library(rixpress)
-
-summary <- rxp_read("summary_by_medium")
-corr <- rxp_read("corr_score_popularity")
-plot <- rxp_read("plot_score_vs_popularity")
-```
-
-### Summary statistics
-
-```r
-summary
-```
-
-Displays descriptive statistics for anime and manga, including
-mean score and popularity measures.
-
-### Correlation analysis
-
-```r
-corr
-```
-
-Shows Pearson and Spearman correlations between popularity
-(log-members) and user ratings.
-
-### Visualization
-
-```r
-plot
-```
-
-Displays a scatter plot of score vs popularity with a smoothing curve.
-
-These objects are generated entirely from the reproducible pipeline —
-no manual preprocessing is required.
 
 ---
