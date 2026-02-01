@@ -34,6 +34,46 @@ require cleaning before analysis.
 
 ---
 
+## Project Structure
+
+```
+anime_manga_pipeline/
+│
+├── data/
+│   ├── anime.csv
+│   └── manga.csv
+│   Raw datasets used for analysis.
+│
+├── gen-pipeline.R
+│   Main reproducible pipeline definition.
+│   Implements cleaning, merging, analysis, and plotting.
+│
+├── gen-env.R
+│   Script used to generate the pinned Nix environment.
+│   Not required to run the pipeline, but documents how the environment was created.
+│
+├── default.nix
+│   Fully pinned environment specification.
+│   Guarantees reproducible software dependencies.
+│
+├── pipeline.nix
+│   Auto-generated rixpress pipeline derivations.
+│
+├── tests/
+│   └── testthat/
+│       └── test-pipeline.R
+│   Automated tests validating data integrity and pipeline correctness.
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│   GitHub Actions configuration for continuous integration.
+│
+└── README.md
+    Project documentation and reproduction instructions.
+```
+___
+
 ## Pipeline
 
 The pipeline is implemented in `gen-pipeline.R` using **rixpress** and
