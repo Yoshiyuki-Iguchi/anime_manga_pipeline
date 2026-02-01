@@ -194,3 +194,15 @@ correlation output structure is valid
 These tests ensure that the cleaning pipeline behaves as expected.
 
 ---
+
+## Conclusion
+
+The analysis highlights a measurable relationship between popularity
+and user ratings in anime and manga datasets.
+
+More importantly, the project demonstrates the practical value of
+reproducible pipelines: every step of the workflow is automated,
+documented, and testable.
+
+Such reproducibility is essential for reliable data science and
+collaborative research.
