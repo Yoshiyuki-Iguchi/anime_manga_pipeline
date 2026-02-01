@@ -75,3 +75,23 @@ git clone <repo-url>
 cd anime_manga_pipeline
 nix-build
 nix-shell --run 'R -q -e "Sys.setenv(RXP_PROJECT_PATH=normalizePath(\".\")); source(\"gen-pipeline.R\"); rixpress::rxp_make(); testthat::test_dir(\"tests/testthat\")"'
+
+---
+
+## Testing
+
+The project includes automated tests using testthat:
+
+dataset is not empty
+
+score ranges are valid
+
+popularity values are positive
+
+anime/manga labels are consistent
+
+correlation output structure is valid
+
+These tests ensure that the cleaning pipeline behaves as expected.
+
+---
