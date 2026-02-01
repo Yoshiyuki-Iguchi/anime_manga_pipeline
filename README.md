@@ -63,6 +63,28 @@ cd anime_manga_pipeline
 nix-build
 nix-shell --run 'R -q -e "Sys.setenv(RXP_PROJECT_PATH=normalizePath(\".\")); source(\"gen-pipeline.R\"); rixpress::rxp_make(); testthat::test_dir(\"tests/testthat\")"'
 ```
+This is for one command.
+
+*
+```r
+Sys.setenv(RXP_PROJECT_PATH=normalizePath("."))
+```
+
+This sets the project root path so the tests can reliably locate the rixpress build cache.
+
+Here is Step-by-step run (alternative):
+```bash
+git clone https://github.com/Yoshiyuki-Iguchi/anime_manga_pipeline
+cd anime_manga_pipeline
+nix-build
+nix-shell
+R
+Sys.setenv(RXP_PROJECT_PATH = normalizePath("."))
+source("gen-pipeline.R")
+rixpress::rxp_make()
+testthat::test_dir("tests/testthat")
+```
+
 ---
 
 ## After Running the Pipeline
