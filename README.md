@@ -75,7 +75,7 @@ git clone <repo-url>
 cd anime_manga_pipeline
 nix-build
 nix-shell --run 'R -q -e "Sys.setenv(RXP_PROJECT_PATH=normalizePath(\".\")); source(\"gen-pipeline.R\"); rixpress::rxp_make(); testthat::test_dir(\"tests/testthat\")"'
-
+```
 ---
 
 ## Testing
