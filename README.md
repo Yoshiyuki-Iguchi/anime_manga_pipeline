@@ -70,8 +70,8 @@ anime_manga_pipeline/
 │   GitHub Actions configuration for continuous integration.
 │
 └── README.md
-|   Project documentation and reproduction instructions.
-|
+│   Project documentation and reproduction instructions.
+│
 └── _rixpress/
     Example rixpress cache structure (generated automatically. It is in gitignore.
 ```
