@@ -135,6 +135,7 @@ testthat::test_dir("tests/testthat")
 The pipeline is automatically tested with GitHub Actions.
 Each push runs a clean build and executes the full pipeline and tests,
 confirming reproducibility on external machines.
+(Please refer to Actions/Add GitHub Actions pipeline test)
 
 ---
 
