@@ -69,7 +69,7 @@ anime_manga_pipeline/
 │       └── ci.yml
 │   GitHub Actions configuration for continuous integration.
 │
-└── README.md
+├── README.md
 │   Project documentation and reproduction instructions.
 │
 └── _rixpress/
