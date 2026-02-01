@@ -1,0 +1,53 @@
+{
+  "derivations": [
+    {
+      "deriv_name": ["anime_raw"],
+      "depends": [],
+      "decoder": {},
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
+      "deriv_name": ["manga_raw"],
+      "depends": [],
+      "decoder": {},
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
+      "deriv_name": ["anime_clean"],
+      "depends": ["anime_raw"],
+      "decoder": ["readRDS"],
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
+      "deriv_name": ["manga_clean"],
+      "depends": ["manga_raw"],
+      "decoder": ["readRDS"],
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
+      "deriv_name": ["combined"],
+      "depends": ["anime_clean", "manga_clean"],
+      "decoder": ["readRDS"],
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
+      "deriv_name": ["summary_by_medium"],
+      "depends": ["combined"],
+      "decoder": ["readRDS"],
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
+      "deriv_name": ["plot_score_vs_popularity"],
+      "depends": ["combined"],
+      "decoder": ["readRDS"],
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    }
+  ]
+}

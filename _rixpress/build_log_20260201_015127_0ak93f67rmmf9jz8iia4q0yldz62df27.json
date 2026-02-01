@@ -1,0 +1,50 @@
+[
+  {
+    "derivation": "anime_clean",
+    "build_success": true,
+    "path": "/nix/store/6ji9g2bnwfkxpz4m0634m04np071xm5c-anime_clean",
+    "output": "anime_clean"
+  },
+  {
+    "derivation": "anime_raw",
+    "build_success": true,
+    "path": "/nix/store/l60wrhflxwwdmjm0a9g4nr3wa3zfxjc5-anime_raw",
+    "output": "anime_raw"
+  },
+  {
+    "derivation": "combined",
+    "build_success": true,
+    "path": "/nix/store/xckxrssmncsx0g28fvnad0hs486pml7h-combined",
+    "output": "combined"
+  },
+  {
+    "derivation": "all-derivations",
+    "build_success": true,
+    "path": "/nix/store/0ak93f67rmmf9jz8iia4q0yldz62df27-all-derivations",
+    "output": ["anime_clean", "anime_raw", "combined", "manga_clean", "manga_raw", "plot_score_vs_popularity", "summary_by_medium"]
+  },
+  {
+    "derivation": "manga_clean",
+    "build_success": true,
+    "path": "/nix/store/f5y1cw058dhzzb6wpky6yx6g6lam23yd-manga_clean",
+    "output": "manga_clean"
+  },
+  {
+    "derivation": "manga_raw",
+    "build_success": true,
+    "path": "/nix/store/dbyqilrjp6fjfijxwq6zqh5wjih6r1qp-manga_raw",
+    "output": "manga_raw"
+  },
+  {
+    "derivation": "plot_score_vs_popularity",
+    "build_success": true,
+    "path": "/nix/store/szi7ay6s0sm02fwl0swykvpadzglc80v-plot_score_vs_popularity",
+    "output": "plot_score_vs_popularity"
+  },
+  {
+    "derivation": "summary_by_medium",
+    "build_success": true,
+    "path": "/nix/store/1gyg0dawwi62l166c3klaljsq2w2gx9b-summary_by_medium",
+    "output": "summary_by_medium"
+  }
+]

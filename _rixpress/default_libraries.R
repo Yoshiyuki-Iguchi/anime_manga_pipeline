@@ -1,0 +1,8 @@
+library(dplyr)
+library(ggplot2)
+library(janitor)
+library(lubridate)
+library(readr)
+library(rixpress)
+library(scales)
+library(stringr)
