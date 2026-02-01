@@ -65,7 +65,7 @@ nix-shell --run 'R -q -e "Sys.setenv(RXP_PROJECT_PATH=normalizePath(\".\")); sou
 ```
 This is for one command.
 
-*
+(Additional Information)
 ```r
 Sys.setenv(RXP_PROJECT_PATH=normalizePath("."))
 ```
