@@ -8,7 +8,8 @@
 #  > "lubridate",
 #  > "ggplot2",
 #  > "scales",
-#  > "rixpress"),
+#  > "rixpress",
+#  > "testthat"),
 #  > ide = "none",
 #  > project_path = ".",
 #  > overwrite = TRUE,
@@ -29,7 +30,8 @@ let
       readr
       rixpress
       scales
-      stringr;
+      stringr
+      testthat;
   };
       
   system_packages = builtins.attrValues {

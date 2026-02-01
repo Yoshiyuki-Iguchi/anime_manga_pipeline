@@ -43,6 +43,13 @@
       "noop_build": [false]
     },
     {
+      "deriv_name": ["corr_score_popularity"],
+      "depends": ["combined"],
+      "decoder": ["readRDS"],
+      "type": ["rxp_r"],
+      "noop_build": [false]
+    },
+    {
       "deriv_name": ["plot_score_vs_popularity"],
       "depends": ["combined"],
       "decoder": ["readRDS"],

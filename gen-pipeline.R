@@ -1,4 +1,11 @@
 # gen-pipeline.R
+# Reproducible pipeline with rixpress:
+# - load anime.csv / manga.csv
+# - clean + standardize
+# - combine
+# - summary + correlation analysis
+# - create ggplot object (no PNG output)
+
 library(rixpress)
 library(dplyr)
 library(readr)
@@ -36,8 +43,8 @@ pipeline <- list(
           favorites = as.numeric(favorites),
           sfw = as.logical(sfw),
           approved = as.logical(approved),
-          start_year = as.integer(start_year),
           start_date = suppressWarnings(lubridate::ymd(start_date)),
+          start_year = as.integer(start_year),
           status = status,
           genres = genres,
           themes = themes,
@@ -69,7 +76,6 @@ pipeline <- list(
           favorites = as.numeric(favorites),
           sfw = as.logical(sfw),
           approved = as.logical(approved),
-          # manga doesnt have start_year, so creates from start_date 
           start_date = suppressWarnings(lubridate::ymd(start_date)),
           start_year = as.integer(lubridate::year(start_date)),
           status = status,
@@ -92,7 +98,7 @@ pipeline <- list(
     expr = bind_rows(anime_clean, manga_clean)
   ),
 
-  # 5) A small summary table (nice for “pipeline output” even w/o files)
+  # 5) Summary table (quick sanity + useful output)
   rxp_r(
     name = summary_by_medium,
     expr = {
@@ -101,13 +107,31 @@ pipeline <- list(
         summarise(
           n = n(),
           score_mean = mean(score, na.rm = TRUE),
+          score_median = median(score, na.rm = TRUE),
           members_median = median(members, na.rm = TRUE),
+          favorites_median = median(favorites, na.rm = TRUE),
           .groups = "drop"
         )
     }
   ),
 
-  # 6) Plot object 
+  # 6) Correlation analysis: score vs popularity (log10 members)
+  rxp_r(
+    name = corr_score_popularity,
+    expr = {
+      combined |>
+        mutate(members_log10 = log10(members)) |>
+        group_by(medium) |>
+        summarise(
+          n = n(),
+          pearson = cor(members_log10, score, use = "complete.obs", method = "pearson"),
+          spearman = cor(members_log10, score, use = "complete.obs", method = "spearman"),
+          .groups = "drop"
+        )
+    }
+  ),
+
+  # 7) Plot object (not saved to file)
   rxp_r(
     name = plot_score_vs_popularity,
     expr = {
@@ -126,3 +150,4 @@ pipeline <- list(
   )
 ) |>
   rxp_populate()
+

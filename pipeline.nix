@@ -65,7 +65,7 @@ saveRDS(data, 'manga_raw')"
       Rscript -e "
         source('libraries.R')
         anime_raw <- readRDS('${anime_raw}/anime_raw')
-        anime_clean <- {     filter(transmute(janitor::clean_names(anime_raw), medium = 'anime', id = anime_id, title = title, type = type, score = as.numeric(score), scored_by = as.numeric(scored_by), members = as.numeric(members), favorites = as.numeric(favorites), sfw = as.logical(sfw), approved = as.logical(approved), start_year = as.integer(start_year), start_date = suppressWarnings(lubridate::ymd(start_date)), status = status, genres = genres, themes = themes, demographics = demographics), !is.na(score), score >= 0,          score <= 10, !is.na(members), members > 0) }
+        anime_clean <- {     filter(transmute(janitor::clean_names(anime_raw), medium = 'anime', id = anime_id, title = title, type = type, score = as.numeric(score), scored_by = as.numeric(scored_by), members = as.numeric(members), favorites = as.numeric(favorites), sfw = as.logical(sfw), approved = as.logical(approved), start_date = suppressWarnings(lubridate::ymd(start_date)), start_year = as.integer(start_year), status = status, genres = genres, themes = themes, demographics = demographics), !is.na(score), score >= 0,          score <= 10, !is.na(members), members > 0) }
         saveRDS(anime_clean, 'anime_clean')"
     '';
   };
@@ -105,8 +105,21 @@ saveRDS(data, 'manga_raw')"
       Rscript -e "
         source('libraries.R')
         combined <- readRDS('${combined}/combined')
-        summary_by_medium <- {     summarise(group_by(combined, medium), n = n(), score_mean = mean(score, na.rm = TRUE), members_median = median(members, na.rm = TRUE), .groups = 'drop') }
+        summary_by_medium <- {     summarise(group_by(combined, medium), n = n(), score_mean = mean(score, na.rm = TRUE), score_median = median(score, na.rm = TRUE), members_median = median(members, na.rm = TRUE), favorites_median = median(favorites, na.rm = TRUE), .groups = 'drop') }
         saveRDS(summary_by_medium, 'summary_by_medium')"
+    '';
+  };
+
+  corr_score_popularity = makeRDerivation {
+    name = "corr_score_popularity";
+    buildInputs = defaultBuildInputs;
+    configurePhase = defaultConfigurePhase;
+    buildPhase = ''
+      Rscript -e "
+        source('libraries.R')
+        combined <- readRDS('${combined}/combined')
+        corr_score_popularity <- {     summarise(group_by(mutate(combined, members_log10 = log10(members)), medium), n = n(), pearson = cor(members_log10, score, use = 'complete.obs', method = 'pearson'), spearman = cor(members_log10, score, use = 'complete.obs', method = 'spearman'), .groups = 'drop') }
+        saveRDS(corr_score_popularity, 'corr_score_popularity')"
     '';
   };
 
@@ -126,11 +139,11 @@ saveRDS(data, 'manga_raw')"
   # Generic default target that builds all derivations
   allDerivations = defaultPkgs.symlinkJoin {
     name = "all-derivations";
-    paths = with builtins; attrValues { inherit anime_raw manga_raw anime_clean manga_clean combined summary_by_medium plot_score_vs_popularity; };
+    paths = with builtins; attrValues { inherit anime_raw manga_raw anime_clean manga_clean combined summary_by_medium corr_score_popularity plot_score_vs_popularity; };
   };
 
 in
 {
-  inherit anime_raw manga_raw anime_clean manga_clean combined summary_by_medium plot_score_vs_popularity;
+  inherit anime_raw manga_raw anime_clean manga_clean combined summary_by_medium corr_score_popularity plot_score_vs_popularity;
   default = allDerivations;
 }

@@ -6,7 +6,8 @@ rix(
   r_pkgs = c(
     "readr","dplyr","stringr","janitor",
     "lubridate","ggplot2","scales",
-    "rixpress"
+    "rixpress",
+    "testthat"
   ),
   ide = "none",
   project_path = ".",
